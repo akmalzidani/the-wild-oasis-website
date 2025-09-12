@@ -1,5 +1,16 @@
+import Link from "next/link";
+import Navigation from "./components/Navigation";
+
 function Page() {
-  return <div>The Wild Oasis. Welcome to paradise!</div>;
+  return (
+    <div>
+      <h1>The Wild Oasis. Welcome to paradise!</h1>
+
+      <Link prefetch href="/cabins">
+        Explore luxury cabins
+      </Link>
+    </div>
+  );
 }
 
 export default Page;
