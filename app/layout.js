@@ -23,13 +23,13 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${josefin.className} antialiased min-h-screen bg-primary-950 text-primary-50 flex flex-col`}
+        className={`${josefin.className} antialiased min-h-screen bg-primary-950 text-primary-50 flex flex-col relative`}
       >
         <Header />
 
-        <div className="flex-1 px-8 py-12">
+        <main className="flex-1 px-8 py-12">
           <main className="mx-auto max-w-7xl">{children}</main>
-        </div>
+        </main>
       </body>
     </html>
   );
