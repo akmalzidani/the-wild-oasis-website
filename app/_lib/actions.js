@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { supabase } from "./supabase";
+import { getBookings } from "./data-service";
 
 const { signIn, signOut, auth } = require("./auth");
 
@@ -17,18 +18,33 @@ export async function updateProfile(formData) {
 
   const updateData = { nationality, countryFlag, nationalID };
 
-  const { data, error } = await supabase
+  const { error } = await supabase
     .from("guests")
     .update(updateData)
     .eq("id", session.user.guestId);
-  // .select()
-  // .single();
 
   if (error) throw new Error("Guest could not be updated");
 
   revalidatePath("/account/profile");
+}
 
-  // return data;
+export async function deleteReservation(bookingId) {
+  const session = await auth();
+  if (!session) throw new Error("You must be logged in");
+  const guestBookings = await getBookings(session.user.guestId);
+
+  const guestBookingsIds = guestBookings.map((b) => b.id);
+  if (!guestBookingsIds.includes(bookingId))
+    throw new Error("You are not allowed to delete this booking");
+
+  const { error } = await supabase
+    .from("bookings")
+    .delete()
+    .eq("id", bookingId);
+
+  if (error) throw new Error("Booking could not be deleted");
+
+  revalidatePath("/account/reservations");
 }
 
 export async function signInAction() {
