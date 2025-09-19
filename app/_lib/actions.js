@@ -29,7 +29,7 @@ export async function updateProfile(formData) {
   revalidatePath("/account/profile");
 }
 
-export async function updateReservation(formData) {
+export async function updateBooking(formData) {
   // 1) Authentication
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
@@ -66,7 +66,7 @@ export async function updateReservation(formData) {
   redirect("/account/reservations");
 }
 
-export async function deleteReservation(bookingId) {
+export async function deleteBooking(bookingId) {
   const session = await auth();
   if (!session) throw new Error("You must be logged in");
   const guestBookings = await getBookings(session.user.guestId);
