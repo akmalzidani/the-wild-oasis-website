@@ -1,3 +1,4 @@
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import Header from "./_components/Header";
 
 import "@/app/_styles/globals.css";
