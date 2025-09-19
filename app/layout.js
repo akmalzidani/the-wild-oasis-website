@@ -33,6 +33,7 @@ export default function RootLayout({ children }) {
             <ReservationProvider>{children}</ReservationProvider>
           </main>
         </main>
+        <SpeedInsights />
       </body>
     </html>
   );
